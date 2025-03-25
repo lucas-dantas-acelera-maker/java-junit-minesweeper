@@ -1,5 +1,7 @@
 package br.com.aceleramaker.model;
 
+import br.com.aceleramaker.exception.ExplosionException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +43,48 @@ public class Field {
         }
 
         return false;
+    }
+
+    void switchMarkedField() {
+        if (!isOpen) {
+            isMarked = !isMarked;
+        }
+    }
+
+    boolean openField() {
+        if (!isOpen && !isMarked) {
+            isOpen = true;
+
+            if (hasMine) {
+                throw new ExplosionException("Game over!");
+            }
+
+            if (isNeighborhoodSafe()) {
+                neighboringFields.forEach(Field::openField);
+            }
+
+            return true;
+        }
+        return false;
+    }
+
+    boolean isNeighborhoodSafe() {
+        return neighboringFields.stream()
+                .noneMatch(nField -> nField.hasMine);
+    }
+
+    void mine() {
+        if (!hasMine) {
+            hasMine = true;
+        }
+    }
+
+    public boolean isMarked() {
+        return isMarked;
+    }
+
+    public boolean isOpened() {
+        return isOpen;
     }
 
 }
