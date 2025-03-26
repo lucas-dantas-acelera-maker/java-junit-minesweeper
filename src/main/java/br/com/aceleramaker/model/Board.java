@@ -39,18 +39,38 @@ public class Board {
         mineFields();
     }
 
+    /**
+     * Gets the board number of rows.
+     *
+     * @return integer number of rows.
+     * */
     int getRows() {
         return rows;
     }
 
+    /**
+     * Gets the board number of columns.
+     *
+     * @return integer number of columns.
+     * */
     int getCols() {
         return cols;
     }
 
+    /**
+     * Gets the board number of mines.
+     *
+     * @return integer number of mines.
+     * */
     int getMines() {
         return mines;
     }
 
+    /**
+     * Gets the fields of the board.
+     *
+     * @return List of Field in the board.
+     * */
     List<Field> getFields() {
         return fields;
     }
