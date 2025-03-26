@@ -72,7 +72,8 @@ public class Board {
      * <p>
      * Mines the fields.
      * </p>
-     *
+     * Verifies the amount of mined fields and mine a field with
+     * random position.
      * */
     private void mineFields() {
         long plantedMines = 0;
@@ -85,10 +86,22 @@ public class Board {
         } while (plantedMines < mines);
     }
 
+    /**
+     * <p>
+     * Verifies if the user won the game.
+     * </p>
+     *
+     * @return true if all safe fields are opened, returns false otherwise.
+     * */
     public boolean goalAchieved() {
         return fields.stream().allMatch(Field::fieldGoalAchieved);
     }
 
+    /**
+     * <p>
+     * Restart the board, resetting state and mining fields again.
+     * </p>
+     * */
     public void restartBoard() {
         fields.forEach(Field::restartField);
         mineFields();
