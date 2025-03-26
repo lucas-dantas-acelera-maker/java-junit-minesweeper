@@ -43,7 +43,7 @@ public class Board {
         return rows;
     }
 
-    int geCols() {
+    int getCols() {
         return cols;
     }
 
@@ -123,5 +123,37 @@ public class Board {
     public void restartBoard() {
         fields.forEach(Field::restartField);
         mineFields();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        int i = 0;
+
+        // Prints col numbers
+        sb.append(" ");
+        for (int c = 0; c < cols; c++) {
+            sb.append(" ");
+            sb.append(c);
+            sb.append(" ");
+        }
+
+        sb.append("\n");
+
+        // Prints row numbers and fields
+        for(int row = 0; row < rows; row ++) {
+            sb.append(row);
+            for (int col = 0; col < cols; col ++) {
+                sb.append(" ");
+                sb.append(fields.get(i));
+                sb.append(" ");
+
+                i++;
+            }
+            sb.append("\n");
+        }
+
+        return sb.toString();
     }
 }
