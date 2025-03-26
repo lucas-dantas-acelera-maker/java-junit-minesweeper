@@ -150,4 +150,90 @@ public class FieldTest {
         assertTrue(field22.isOpened() && !field11.isOpened());
     }
 
+    @Test
+    void getRow() {
+        assertEquals(3, field.getRow());
+    }
+
+    @Test
+    void getColumn() {
+        assertEquals(3, field.getColumn());
+    }
+
+    @Test
+    void openedFieldGoalAchieved() {
+        field.openField();
+        assertTrue(field.fieldGoalAchieved());
+    }
+
+    @Test
+    void markedFieldGoalAchieved() {
+        field.mine();
+        field.switchMarkedField();
+        assertTrue(field.fieldGoalAchieved());
+    }
+
+    @Test
+    void countNeighborhoodMines() {
+        Field field22 = new Field(2,2);
+        Field field32 = new Field(3,2);
+        Field field34 = new Field(3,4);
+
+        field34.mine();
+        field32.mine();
+
+        field.addNeighbor(field22);
+        field.addNeighbor(field32);
+        field.addNeighbor(field34);
+
+        assertEquals(2, field.countNeighborhoodMines());
+    }
+
+    @Test
+    void restartGame() {
+        field.mine();
+        field.switchMarkedField();
+
+        field.restartField();
+        assertTrue(!field.isOpened() && !field.isMarked());
+    }
+
+    @Test
+    void testToStringMarkedField() {
+        field.switchMarkedField();
+        assertEquals("x", field.toString());
+    }
+
+    @Test
+    void testToStringOpenedMinedField() {
+        field.mine();
+        try {
+            field.openField();
+        } catch (ExplosionException e) {
+            assertTrue(field.isOpened());
+        }
+        assertEquals("*", field.toString());
+    }
+
+    @Test
+    void testToStringOpenedSafeField() {
+        field.openField();
+        assertEquals(" ", field.toString());
+        field.restartField();
+    }
+
+    @Test
+    void testToStringNeighborhoodMinesCount() {
+        Field field32 = new Field(3,2);
+        Field field44 = new Field(4,4);
+
+        field32.mine();
+        field44.mine();
+
+        field.addNeighbor(field32);
+        field.addNeighbor(field44);
+        field.openField();
+
+        assertEquals("2", field.toString());
+    }
 }
