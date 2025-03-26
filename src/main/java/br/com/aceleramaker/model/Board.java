@@ -2,6 +2,7 @@ package br.com.aceleramaker.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * <p>
@@ -74,6 +75,22 @@ public class Board {
      *
      * */
     private void mineFields() {
+        long plantedMines = 0;
+        Predicate<Field> mined = Field::isMined;
 
+        do {
+            plantedMines = fields.stream().filter(mined).count();
+            int randomPosition = (int) (Math.random() * fields.size());
+            fields.get(randomPosition).mine();
+        } while (plantedMines < mines);
+    }
+
+    public boolean goalAchieved() {
+        return fields.stream().allMatch(Field::fieldGoalAchieved);
+    }
+
+    public void restartBoard() {
+        fields.forEach(Field::restartField);
+        mineFields();
     }
 }
