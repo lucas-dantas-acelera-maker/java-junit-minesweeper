@@ -9,9 +9,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public class BoardTest {
 
     private Board board;
-    private static final int ROWS = 5;
-    private static final int COLS = 5;
-    private static final int MINES = 5;
+    private static final int ROWS = 6;
+    private static final int COLS = 6;
+    private static final int MINES = 6;
 
     @BeforeEach
     void startBoard() {
@@ -25,7 +25,7 @@ public class BoardTest {
 
     @Test
     void testGenerateFields() {
-        int expectedSize = 5 * 5;
+        int expectedSize = 6 * 6;
         assertEquals(expectedSize, board.getCols() * board.getRows());
     }
 
@@ -40,7 +40,7 @@ public class BoardTest {
 
     @Test
     void testMineFields() {
-        assertEquals(5, board.getMines());
+        assertEquals(6, board.getMines());
     }
 
     @Test
@@ -71,6 +71,44 @@ public class BoardTest {
         assertTrue(isBoardReseted);
 
         assertEquals(MINES, board.getMines());
+    }
+
+    @Test
+    void testOpenField() {
+        Field f = board.getFields().stream()
+                .filter(field -> !field.isMined())
+                .findFirst()
+                .orElse(new Field(3, 3));
+
+        board.openField(f.getRow(), f.getColumn());
+
+        assertTrue(f.isOpened());
+    }
+
+    @Test
+    void testToggleMark() {
+        Field f = board.getFields().stream()
+                .findAny()
+                .orElse(new Field(3,3));
+
+        board.toggleMark(f.getRow(), f.getColumn());
+
+        assertTrue(f.isMarked());
+    }
+
+    @Test
+    void testToStringRowAndColumnNumbers() {
+        String expected = """
+                  0  1  2  3  4  5\s
+                0 ?  ?  ?  ?  ?  ?\s
+                1 ?  ?  ?  ?  ?  ?\s
+                2 ?  ?  ?  ?  ?  ?\s
+                3 ?  ?  ?  ?  ?  ?\s
+                4 ?  ?  ?  ?  ?  ?\s
+                5 ?  ?  ?  ?  ?  ?\s
+                """;
+
+        assertEquals(expected, board.toString());
     }
 
 }
