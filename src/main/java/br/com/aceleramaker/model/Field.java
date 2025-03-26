@@ -69,6 +69,10 @@ public class Field {
         return false;
     }
 
+    public List<Field> getNeighboringFields() {
+        return neighboringFields;
+    }
+
     /**
      * <p>
      * Switches the marked state.
