@@ -223,6 +223,11 @@ public class FieldTest {
     }
 
     @Test
+    void testToStringClosedField() {
+        assertEquals("?", field.toString());
+    }
+
+    @Test
     void testToStringNeighborhoodMinesCount() {
         Field field32 = new Field(3,2);
         Field field44 = new Field(4,4);
