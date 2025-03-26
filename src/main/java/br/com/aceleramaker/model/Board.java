@@ -110,7 +110,9 @@ public class Board {
      * @return true if all safe fields are opened, returns false otherwise.
      * */
     public boolean goalAchieved() {
-        return fields.stream().allMatch(Field::fieldGoalAchieved);
+        return fields.stream()
+                .filter(field -> !field.isMined())
+                .allMatch(Field::isOpened);
     }
 
     /**
