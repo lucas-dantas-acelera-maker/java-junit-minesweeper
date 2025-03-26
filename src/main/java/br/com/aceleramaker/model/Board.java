@@ -39,6 +39,22 @@ public class Board {
         mineFields();
     }
 
+    int getRows() {
+        return rows;
+    }
+
+    int geCols() {
+        return cols;
+    }
+
+    int getMines() {
+        return mines;
+    }
+
+    List<Field> getFields() {
+        return fields;
+    }
+
     /**
      * <p>
      * Generates the fields of the board.
