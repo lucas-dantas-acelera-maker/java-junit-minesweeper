@@ -26,7 +26,7 @@ public class BoardTest {
     @Test
     void testGenerateFields() {
         int expectedSize = 5 * 5;
-        assertEquals(expectedSize, board.geCols() * board.getRows());
+        assertEquals(expectedSize, board.getCols() * board.getRows());
     }
 
     @Test
