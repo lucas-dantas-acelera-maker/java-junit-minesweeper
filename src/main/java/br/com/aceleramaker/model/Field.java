@@ -131,6 +131,10 @@ public class Field {
         }
     }
 
+    public boolean isMined() {
+        return hasMine;
+    }
+
     /**
      * <p>
      * Verifies if the field is marked.
