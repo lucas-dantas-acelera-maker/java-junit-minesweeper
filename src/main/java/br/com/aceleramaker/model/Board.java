@@ -75,6 +75,15 @@ public class Board {
         return fields;
     }
 
+    /**
+     * <p>
+     * Opens a selected field.
+     * </p>
+     * Iterates over the fields of the board and open the selected field.
+     *
+     * @param row number of the field's row to be opened.
+     * @param column number of the field's column to be opened.
+     * */
     public void openField(int row, int column) {
         fields.parallelStream()
                 .filter(field -> field.getRow() == row && field.getColumn() == column)
@@ -82,6 +91,15 @@ public class Board {
                 .ifPresent(Field::openField);
     }
 
+    /**
+     * <p>
+     * Toggle the mark of a selected field.
+     * </p>
+     * Iterates over the fields of the board and toggles the mark of the field.
+     *
+     * @param row number of the field's row to be marked.
+     * @param column number of the field's column to be marked.
+     * */
     public void toggleMark(int row, int column) {
         fields.parallelStream()
                 .filter(field -> field.getRow() == row && field.getColumn() == column)
@@ -159,6 +177,19 @@ public class Board {
         mineFields();
     }
 
+    /**<p>
+     * Returns a textual representation of the Board for console display.
+     * </p>
+     * The output includes:
+     * <ul>
+     *   <li>Column numbers at the top for reference.</li>
+     *   <li>Row numbers at the beginning of each row.</li>
+     *   <li>The state of each field displayed in a structured grid format.</li>
+     * </ul>
+     * This method is useful for visualizing the minefield during gameplay.
+     *
+     * @return a formatted string representing the minefield.
+     * */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
