@@ -153,4 +153,83 @@ public class Field {
         return isOpen;
     }
 
+    /**
+     * Gets the row position.
+     *
+     * @return number of the row.
+     * */
+    public int getRow() {
+        return row;
+    }
+
+    /**
+     * Gets the column position.
+     *
+     * @return number of the column.
+     * */
+    public int getColumn() {
+        return column;
+    }
+    
+    /**<p>
+     * Determines if the goal is achieved for the field.
+     * </p>
+     *
+     * @return true if the field is safely opened or a mined field is marked,
+     * otherwise returns false.
+     *
+     * */
+    boolean fieldGoalAchieved() {
+        boolean revealedField = !hasMine && isOpen;
+        boolean protectedField = hasMine && isMarked;
+
+        return protectedField || revealedField;
+    }
+
+    /**
+     * <p>
+     * Counts the number of mines in the neighboring fields.
+     * </p>
+     *
+     * @return long number of mines in adjacent fields.
+     * */
+    long countNeighborhoodMines() {
+        return neighboringFields.stream().filter(neighbor -> neighbor.hasMine).count();
+    }
+
+    /**
+     * <p>
+     * Restart the state of the field.
+     * </p>
+     * */
+    void restartField() {
+        isOpen = false;
+        hasMine = false;
+        isMarked = false;
+    }
+
+    /**
+     * Returns a textual representation of the field for console display.
+     * <p>
+     * The output varies based on the field's state:
+     * <ul>
+     *  <li>"x" if the field is marked.</li>
+     *  <li>"*" if the field is open and contains a mine.</li>
+     *  <li>The number of neighboring mines if the field is open and has adjacent mines.</li>
+     *  <li>" " (space) if the field is open and has no adjacent mines.</li>
+     *  <li>"?" if the field is closed and not marked.</li>
+     * </ul>
+     *
+     * @return a string representing the field's state.
+     * */
+    @Override
+    public String toString() {
+        if (isMarked) return "x";
+        if (isOpen && hasMine) return "*";
+        if (isOpen && countNeighborhoodMines() > 0) {
+            return Long.toString(countNeighborhoodMines());
+        }
+        if (isOpen) return " ";
+        return "?";
+    }
 }
