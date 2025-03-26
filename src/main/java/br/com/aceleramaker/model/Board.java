@@ -55,6 +55,20 @@ public class Board {
         return fields;
     }
 
+    public void openField(int row, int column) {
+        fields.parallelStream()
+                .filter(field -> field.getRow() == row && field.getColumn() == column)
+                .findFirst()
+                .ifPresent(Field::openField);
+    }
+
+    public void toggleMark(int row, int column) {
+        fields.parallelStream()
+                .filter(field -> field.getRow() == row && field.getColumn() == column)
+                .findFirst()
+                .ifPresent(Field::switchMarkedField);
+    }
+
     /**
      * <p>
      * Generates the fields of the board.
