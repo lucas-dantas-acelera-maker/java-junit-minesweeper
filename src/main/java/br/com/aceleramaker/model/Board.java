@@ -44,7 +44,7 @@ public class Board {
      *
      * @return integer number of rows.
      * */
-    int getRows() {
+    public int getRows() {
         return rows;
     }
 
@@ -53,7 +53,7 @@ public class Board {
      *
      * @return integer number of columns.
      * */
-    int getCols() {
+    public int getCols() {
         return cols;
     }
 
