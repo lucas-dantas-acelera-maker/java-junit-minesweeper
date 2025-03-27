@@ -46,14 +46,14 @@ public class BoardConsoleView {
 
                 String userIn = getUserInput("Restart game? (S/n): ");
 
-                if (userIn.equalsIgnoreCase("n")) {
+                if (userIn.equalsIgnoreCase("s")) {
+                    board.restartBoard();
+                } else {
                     exitGame = true;
                 }
             }
 
-            board.restartBoard();
             throw new ExitException("See you soon!");
-
         } catch (ExitException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -73,33 +73,53 @@ public class BoardConsoleView {
 
                 String userIn = getUserInput("Enter the field coordinates (x,y): ");
 
-                String[] parts = userIn.split(",");
 
-                List<Integer> positions = Arrays.stream(parts)
-                        .map(e -> Integer.parseInt(e.trim()))
-                        .toList();
+                List<Integer> positions = getCoordinates(userIn);
 
-                int row = positions.getFirst();
-                int column = positions.get(1);
+                if (positions != null) {
+                    int row = positions.getFirst();
+                    int column = positions.get(1);
 
-                userIn = getUserInput("1 - Open field \n2 - Toggle mark: ");
+                    userIn = getUserInput("1 - Open field \n2 - Toggle mark: ");
 
-                if (userIn.equalsIgnoreCase("1")) {
-                    board.openField(row, column);
+                    switch (userIn) {
+                        case "1" -> board.openField(row, column);
+                        case "2" -> board.toggleMark(row, column);
+                        default -> System.out.println("Invalid option. Please enter 1 or 2.");
+                    }
                 }
-
-                if (userIn.equalsIgnoreCase("2")) {
-                    board.toggleMark(row, column);
-                }
-
             }
 
             System.out.println("Congrats! You've won the game :)");
         } catch (ExplosionException e) {
             System.out.println(board);
             System.out.println("BOOM!!! " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+    /**
+     * Converts the user's coordinate input into a list of integers.
+     *
+     * @param input The user input in the format "row,column".
+     * @return A list containing row and column as integers.
+     */
+    private List<Integer> getCoordinates(String input) {
+        String[] parts = input.split(",");
+
+        if (parts.length != 2) {
+            throw new IllegalArgumentException("Please enter coordinates in the format 'row,column'.");
+        }
+
+        try {
+            return Arrays.stream(parts)
+                    .map(e -> Integer.parseInt(e.trim()))
+                    .toList();
+
         } catch (NumberFormatException e) {
-            System.out.println("Invalid input. Coordinates must be numbers: " + e.getMessage());
+            throw new IllegalArgumentException("Coordinates must be numeric values.");
         }
     }
 
