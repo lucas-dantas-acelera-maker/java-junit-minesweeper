@@ -61,6 +61,11 @@ public class BoardConsoleView {
         }
     }
 
+    /**
+     * Executes the cycle of the game, processing user actions.
+     * Handles opening fields, marking fields, and detecting game outcomes.
+     * Catches exceptions related to invalid inputs and explosions.
+     */
     private void gameCycle() {
         try {
             while (!board.goalAchieved()) {
@@ -98,6 +103,14 @@ public class BoardConsoleView {
         }
     }
 
+
+    /**
+     * Prompts the user for input and returns their response.
+     *
+     * @param text The message displayed to the user.
+     * @return The user's input as a string.
+     * @throws ExitException if the user inputs "exit".
+     */
     private String getUserInput(String text) {
         System.out.print(text);
         String userInput = sc.nextLine();
