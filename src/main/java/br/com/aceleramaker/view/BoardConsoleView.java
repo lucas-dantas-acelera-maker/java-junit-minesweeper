@@ -44,7 +44,7 @@ public class BoardConsoleView {
             while (!exitGame) {
                 gameCycle();
 
-                String userIn = getUserInput("Restart game? (S/n): ");
+                String userIn = getUserInput("Restart game? (Y/n): ");
 
                 if (userIn.equalsIgnoreCase("s")) {
                     board.restartBoard();
