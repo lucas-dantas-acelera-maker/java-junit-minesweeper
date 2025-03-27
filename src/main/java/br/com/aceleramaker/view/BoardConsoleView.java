@@ -8,17 +8,35 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Handles the console-based interaction for the Minesweeper game.
+ * <p>
+ * This class is responsible for managing user input and displaying the board.
+ * It also controls the game loop, processes user commands, and handles exceptions
+ * such as game exits and explosions.
+ * </p>
+ */
 public class BoardConsoleView {
 
     private Board board;
     Scanner sc = new Scanner(System.in);
 
+
+    /**
+     * Constructs a BoardConsoleView and starts the game loop.
+     *
+     * @param board The game board to be managed.
+     */
     public BoardConsoleView(Board board) {
         this.board = board;
 
         runGame();
     }
 
+    /**
+     * Manages the main game loop, handling user input and game restarts.
+     * Catches ExitException when the user chooses to quit the game.
+     */
     private void runGame() {
         try {
             boolean exitGame = false;
