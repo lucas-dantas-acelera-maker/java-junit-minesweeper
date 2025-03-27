@@ -73,20 +73,13 @@ public class BoardConsoleView {
 
                 String userIn = getUserInput("Enter the field coordinates (x,y): ");
 
-
                 List<Integer> positions = getCoordinates(userIn);
 
                 if (positions != null) {
                     int row = positions.getFirst();
                     int column = positions.get(1);
 
-                    userIn = getUserInput("1 - Open field \n2 - Toggle mark: ");
-
-                    switch (userIn) {
-                        case "1" -> board.openField(row, column);
-                        case "2" -> board.toggleMark(row, column);
-                        default -> System.out.println("Invalid option. Please enter 1 or 2.");
-                    }
+                    processGameAction(row, column);
                 }
             }
 
@@ -96,6 +89,22 @@ public class BoardConsoleView {
             System.out.println("BOOM!!! " + e.getMessage());
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    private void processGameAction(int row, int col) {
+        if (row > board.getRows() || col > board.getCols()) {
+            throw new IllegalArgumentException(
+                    String.format("Invalid field. Board size is %dx%d", board.getRows(), board.getCols())
+            );
+        }
+
+        String userIn = getUserInput("1 - Open field \n2 - Toggle mark: ");
+
+        switch (userIn) {
+            case "1" -> board.openField(row, col);
+            case "2" -> board.toggleMark(row, col);
+            default -> System.out.println("Invalid option. Please enter 1 or 2.");
         }
     }
 
