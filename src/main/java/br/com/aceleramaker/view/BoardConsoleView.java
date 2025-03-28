@@ -92,6 +92,15 @@ public class BoardConsoleView {
         }
     }
 
+    /**
+     * <p>
+     * Processes the game action according to the user input.
+     * </p>
+     *
+     * @param row selected row.
+     * @param col selected column.
+     * @throws IllegalArgumentException if the user selects a non-existent row/column.
+     * */
     private void processGameAction(int row, int col) {
         if (row > board.getRows() || col > board.getCols()) {
             throw new IllegalArgumentException(
