@@ -161,6 +161,10 @@ public class Field {
         return isOpen;
     }
 
+    void setIsOpen() {
+        isOpen = true;
+    }
+
     /**
      * Gets the row position.
      *

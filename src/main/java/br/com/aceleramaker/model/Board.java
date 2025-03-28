@@ -1,5 +1,7 @@
 package br.com.aceleramaker.model;
 
+import br.com.aceleramaker.exception.ExplosionException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -85,10 +87,18 @@ public class Board {
      * @param column number of the field's column to be opened.
      * */
     public void openField(int row, int column) {
-        fields.parallelStream()
-                .filter(field -> field.getRow() == row && field.getColumn() == column)
-                .findFirst()
-                .ifPresent(Field::openField);
+        try {
+            fields.parallelStream()
+                    .filter(field -> field.getRow() == row && field.getColumn() == column)
+                    .findFirst()
+                    .ifPresent(Field::openField);
+        } catch (ExplosionException e) {
+            fields.stream()
+                    .filter(Field::isMined)
+                    .forEach(Field::setIsOpen);
+            throw e;
+        }
+
     }
 
     /**
