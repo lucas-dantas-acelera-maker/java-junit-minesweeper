@@ -99,7 +99,7 @@ public class BoardConsoleView {
             );
         }
 
-        String userIn = getUserInput("1 - Open field \n2 - Toggle mark: ");
+        String userIn = getUserInput("(1) Open field - (2) Toggle mark: ");
 
         switch (userIn) {
             case "1" -> board.openField(row, col);
