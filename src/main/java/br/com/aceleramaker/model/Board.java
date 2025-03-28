@@ -158,9 +158,9 @@ public class Board {
         Predicate<Field> mined = Field::isMined;
 
         do {
-            plantedMines = fields.stream().filter(mined).count();
             int randomPosition = (int) (Math.random() * fields.size());
             fields.get(randomPosition).mine();
+            plantedMines = fields.stream().filter(mined).count();
         } while (plantedMines < mines);
     }
 
